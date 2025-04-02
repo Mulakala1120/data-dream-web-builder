@@ -9,7 +9,93 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      contact_submissions: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          email: string
+          id: string
+          subscribed_at: string
+        }
+        Insert: {
+          email: string
+          id?: string
+          subscribed_at?: string
+        }
+        Update: {
+          email?: string
+          id?: string
+          subscribed_at?: string
+        }
+        Relationships: []
+      }
+      service_requests: {
+        Row: {
+          budget_range: string | null
+          company_name: string | null
+          contact_name: string
+          created_at: string
+          email: string
+          id: string
+          phone: string | null
+          project_description: string | null
+          service_type: string
+          status: string
+          timeline: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          company_name?: string | null
+          contact_name: string
+          created_at?: string
+          email: string
+          id?: string
+          phone?: string | null
+          project_description?: string | null
+          service_type: string
+          status?: string
+          timeline?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          company_name?: string | null
+          contact_name?: string
+          created_at?: string
+          email?: string
+          id?: string
+          phone?: string | null
+          project_description?: string | null
+          service_type?: string
+          status?: string
+          timeline?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

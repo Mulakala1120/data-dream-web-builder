@@ -1,11 +1,11 @@
 
 import React from "react";
 import { 
-  BarChart3, 
+  Database, 
   Clock, 
   Shield, 
   Zap,
-  Layers,
+  BarChart3,
   LineChart 
 } from "lucide-react";
 
@@ -32,34 +32,34 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => {
 const Features: React.FC = () => {
   const features = [
     {
+      icon: <Database className="h-6 w-6" />,
+      title: "Data Integration",
+      description: "Connect and synchronize data across multiple sources including SQL, NoSQL, APIs, and streaming platforms with our custom connectors and middleware solutions."
+    },
+    {
       icon: <Zap className="h-6 w-6" />,
-      title: "High Performance",
-      description: "Our data pipelines are optimized for speed and efficiency, ensuring quick access to insights when you need them."
+      title: "Real-time ETL",
+      description: "Transform raw data into analytics-ready formats with our high-performance ETL pipelines that handle both batch and streaming workloads with sub-second latency."
     },
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "Enterprise Security",
-      description: "We implement industry-standard security practices to keep your sensitive data protected at all times."
+      title: "Data Governance",
+      description: "Implement comprehensive data quality, security, and compliance frameworks that ensure regulatory adherence (GDPR, CCPA, HIPAA) while maintaining data lineage."
     },
     {
       icon: <BarChart3 className="h-6 w-6" />,
-      title: "Advanced Analytics",
-      description: "Transform raw data into actionable insights with our advanced analytics capabilities and dashboards."
+      title: "Analytics Infrastructure",
+      description: "Deploy scalable data lake and warehouse architectures on cloud platforms (AWS, Azure, GCP) optimized for both ad-hoc analysis and production ML workloads."
     },
     {
       icon: <Clock className="h-6 w-6" />,
-      title: "Real-time Processing",
-      description: "Process and analyze data in real-time to make informed decisions faster than your competitors."
-    },
-    {
-      icon: <Layers className="h-6 w-6" />,
-      title: "Scalable Architecture",
-      description: "Our solutions grow with your business, from startups to enterprise-level data operations."
+      title: "Data Orchestration",
+      description: "Automate and monitor complex data workflows with fault-tolerant scheduling using industry-standard tools like Airflow, Prefect, or custom solutions."
     },
     {
       icon: <LineChart className="h-6 w-6" />,
-      title: "Predictive Capabilities",
-      description: "Leverage machine learning models to predict trends and stay ahead of market changes."
+      title: "Data Science Enablement",
+      description: "Build feature stores and ML platforms that bridge the gap between data engineering and data science teams, accelerating model development cycles."
     }
   ];
 
@@ -69,7 +69,7 @@ const Features: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Our <span className="data-gradient">Key Features</span></h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Discover what makes our data engineering solutions stand out from the rest.
+            Industry-leading data engineering capabilities tailored to your enterprise requirements.
           </p>
         </div>
 

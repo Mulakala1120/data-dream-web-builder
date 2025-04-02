@@ -28,11 +28,17 @@ const Navbar: React.FC = () => {
           <a href="#services" className="text-foreground hover:text-primary transition-colors">
             Services
           </a>
+          <a href="#features" className="text-foreground hover:text-primary transition-colors">
+            Features
+          </a>
           <a href="#process" className="text-foreground hover:text-primary transition-colors">
             Process
           </a>
           <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">
             Testimonials
+          </a>
+          <a href="#faq" className="text-foreground hover:text-primary transition-colors">
+            FAQ
           </a>
           <Button asChild>
             <a href="#contact" className="bg-primary text-white">Contact Us</a>
@@ -59,11 +65,17 @@ const Navbar: React.FC = () => {
             <a href="#services" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Services
             </a>
+            <a href="#features" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+              Features
+            </a>
             <a href="#process" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Process
             </a>
             <a href="#testimonials" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Testimonials
+            </a>
+            <a href="#faq" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+              FAQ
             </a>
             <Button asChild className="mt-4">
               <a href="#contact" onClick={toggleMenu}>Contact Us</a>

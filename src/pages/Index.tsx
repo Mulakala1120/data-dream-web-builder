@@ -11,6 +11,7 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ServiceRequest from "@/components/ServiceRequest";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
         <Hero />
         <About />
         <Services />
+        <ServiceRequest />
         <Features />
         <Process />
         <Testimonials />

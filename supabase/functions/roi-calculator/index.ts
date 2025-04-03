@@ -13,6 +13,8 @@ interface ROICalculationRequest {
   serviceLevel: string;
   industry?: string;
   companySize?: string;
+  action?: string;
+  email?: string;
 }
 
 interface ROICalculationResponse {
@@ -22,6 +24,8 @@ interface ROICalculationResponse {
   annualSavings: number;
   paybackPeriod: number;
   recommendedApproach: string;
+  nextSteps?: string[];
+  reportUrl?: string;
 }
 
 serve(async (req) => {
@@ -32,7 +36,7 @@ serve(async (req) => {
 
   try {
     const data: ROICalculationRequest = await req.json();
-    const { dataVolume, currentEfficiency, serviceLevel, industry, companySize } = data;
+    const { dataVolume, currentEfficiency, serviceLevel, industry, companySize, action, email } = data;
 
     // Advanced ROI calculation with industry-specific adjustments
     let baseEfficiencyGain = 0;
@@ -101,13 +105,52 @@ serve(async (req) => {
       recommendedApproach = "Fine-tuning and governance improvements for existing systems";
     }
     
+    // Handle different actions
+    let nextSteps = [];
+    let reportUrl = "";
+    
+    if (action === "generate-report" && email) {
+      // In a real implementation, this would send an email with the report
+      nextSteps = [
+        "Review your detailed ROI analysis report",
+        "Schedule a consultation with our data engineering experts",
+        "Explore our case studies for similar implementations in your industry"
+      ];
+      reportUrl = `https://example.com/reports/roi-${Date.now()}.pdf`;
+      
+      console.log(`Report requested by ${email} for ${industry || "unknown"} industry`);
+    } else if (action === "next-steps") {
+      // Custom next steps based on the calculation results
+      if (roiPercentage > 200) {
+        nextSteps = [
+          "Schedule a comprehensive data assessment",
+          "Set up a technical architecture planning session",
+          "Develop a phased implementation roadmap"
+        ];
+      } else if (roiPercentage > 100) {
+        nextSteps = [
+          "Begin with a focused pilot project",
+          "Identify your highest-impact data workflows",
+          "Schedule a technical scoping workshop"
+        ];
+      } else {
+        nextSteps = [
+          "Start with a data maturity assessment",
+          "Identify quick-win optimization opportunities",
+          "Schedule an introductory consultation"
+        ];
+      }
+    }
+    
     const result: ROICalculationResponse = {
       timeReduction,
       costSavings,
       roiPercentage,
       annualSavings,
       paybackPeriod,
-      recommendedApproach
+      recommendedApproach,
+      nextSteps: nextSteps.length > 0 ? nextSteps : undefined,
+      reportUrl: reportUrl || undefined
     };
 
     return new Response(JSON.stringify(result), {

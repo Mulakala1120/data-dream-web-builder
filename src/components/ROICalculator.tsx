@@ -1,12 +1,13 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Download } from "lucide-react";
+import { Calculator, Download, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -21,6 +22,7 @@ interface ROICalculationResponse {
 
 const ROICalculator = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [dataVolume, setDataVolume] = useState<number>(500);
   const [currentEfficiency, setCurrentEfficiency] = useState<number>(30);
   const [serviceLevel, setServiceLevel] = useState<string>("standard");
@@ -58,6 +60,21 @@ const ROICalculator = () => {
     } finally {
       setIsCalculating(false);
     }
+  };
+
+  const handleDetailedAnalysis = () => {
+    if (!results) return;
+    
+    navigate("/roi-analysis", { 
+      state: { 
+        results,
+        dataVolume,
+        currentEfficiency,
+        serviceLevel,
+        industry,
+        companySize
+      }
+    });
   };
 
   const handleDownloadReport = () => {
@@ -207,10 +224,14 @@ const ROICalculator = () => {
                     </div>
                   </div>
                   
-                  <div className="text-center">
+                  <div className="grid grid-cols-2 gap-4">
                     <Button variant="outline" onClick={handleDownloadReport}>
                       <Download className="mr-2 h-4 w-4" />
-                      Download Detailed Report
+                      Download Report
+                    </Button>
+                    <Button onClick={handleDetailedAnalysis}>
+                      Get Detailed Analysis
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </>

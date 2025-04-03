@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ROIAnalysis from "./pages/ROIAnalysis";
 import NotFound from "./pages/NotFound";
+import ServiceDetails from "./pages/ServiceDetails";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/roi-analysis" element={<ROIAnalysis />} />
+          <Route path="/service-details/:serviceId" element={<ServiceDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Check, HelpCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useNavigate } from "react-router-dom";
 
 interface ServiceTier {
   id: string;
@@ -75,6 +76,16 @@ const serviceTiers: ServiceTier[] = [
 ];
 
 const ServiceComparison = () => {
+  const navigate = useNavigate();
+
+  const handleServiceSelect = (tier: ServiceTier) => {
+    navigate(`/service-details/${tier.id}`, { 
+      state: { 
+        serviceDetails: tier 
+      } 
+    });
+  };
+
   return (
     <section id="service-comparison" className="py-16 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -134,6 +145,7 @@ const ServiceComparison = () => {
                   className="w-full" 
                   variant={tier.highlighted ? "default" : "outline"}
                   size="lg"
+                  onClick={() => handleServiceSelect(tier)}
                 >
                   {tier.buttonText}
                 </Button>
@@ -146,7 +158,11 @@ const ServiceComparison = () => {
           <p className="text-muted-foreground mb-4">
             Need a custom solution? We offer tailored packages for unique requirements.
           </p>
-          <Button size="lg" variant="outline">
+          <Button 
+            size="lg" 
+            variant="outline"
+            onClick={() => navigate('/service-details/custom')}
+          >
             Request Custom Quote
           </Button>
         </div>

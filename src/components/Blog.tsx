@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart, Database, FileText, Share2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface BlogPost {
   id: number;
@@ -13,6 +14,7 @@ interface BlogPost {
   readTime: string;
   category: string;
   image: string;
+  url: string;
   author: {
     name: string;
     title: string;
@@ -29,6 +31,7 @@ const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     category: "Architecture",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2834&q=80",
+    url: "/blog/data-mesh-architecture",
     author: {
       name: "Alex Morgan",
       title: "Chief Data Architect",
@@ -43,6 +46,7 @@ const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     category: "Performance",
     image: "https://images.unsplash.com/photo-1542903660-eedba2cda473?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    url: "/blog/snowflake-optimization",
     author: {
       name: "Sarah Chen",
       title: "Lead Data Engineer",
@@ -57,6 +61,7 @@ const blogPosts: BlogPost[] = [
     readTime: "15 min read",
     category: "Strategy",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1426&q=80",
+    url: "/blog/modern-data-stack",
     author: {
       name: "Marcus Johnson",
       title: "Data Science Director",
@@ -77,51 +82,55 @@ const Blog = () => {
             </p>
           </div>
           <div className="mt-4 md:mt-0">
-            <Button variant="outline" size="lg">
-              View All Articles <ArrowRight className="ml-2 h-4 w-4" />
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/blog">
+                View All Articles <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
-            <Card key={post.id} className="overflow-hidden flex flex-col h-full hover:shadow-md transition-all">
-              <div className="aspect-video overflow-hidden">
-                <img 
-                  src={post.image} 
-                  alt={post.title} 
-                  className="h-full w-full object-cover transition-transform hover:scale-105 duration-500"
-                />
-              </div>
-              <CardHeader className="pb-2">
-                <div className="flex justify-between items-center mb-2">
-                  <Badge>{post.category}</Badge>
-                  <div className="text-xs text-muted-foreground">{post.date}</div>
-                </div>
-                <CardTitle className="text-xl leading-tight">{post.title}</CardTitle>
-                <CardDescription className="flex items-center text-xs">
-                  <FileText className="h-3 w-3 mr-1" /> {post.readTime}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pb-4 flex-grow">
-                <p className="text-muted-foreground text-sm">{post.excerpt}</p>
-              </CardContent>
-              <CardFooter className="pt-0 flex justify-between items-center">
-                <div className="flex items-center">
+            <Card key={post.id} className="overflow-hidden flex flex-col h-full hover:shadow-md transition-all group">
+              <Link to={post.url} className="block h-full flex flex-col">
+                <div className="aspect-video overflow-hidden">
                   <img 
-                    src={post.author.avatar} 
-                    alt={post.author.name} 
-                    className="h-8 w-8 rounded-full mr-2 object-cover"
+                    src={post.image} 
+                    alt={post.title} 
+                    className="h-full w-full object-cover transition-transform group-hover:scale-105 duration-500"
                   />
-                  <div>
-                    <p className="text-sm font-medium leading-none">{post.author.name}</p>
-                    <p className="text-xs text-muted-foreground">{post.author.title}</p>
-                  </div>
                 </div>
-                <Button variant="ghost" size="icon">
-                  <Share2 className="h-4 w-4" />
-                </Button>
-              </CardFooter>
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-center mb-2">
+                    <Badge>{post.category}</Badge>
+                    <div className="text-xs text-muted-foreground">{post.date}</div>
+                  </div>
+                  <CardTitle className="text-xl leading-tight group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                  <CardDescription className="flex items-center text-xs">
+                    <FileText className="h-3 w-3 mr-1" /> {post.readTime}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pb-4 flex-grow">
+                  <p className="text-muted-foreground text-sm">{post.excerpt}</p>
+                </CardContent>
+                <CardFooter className="pt-0 flex justify-between items-center mt-auto">
+                  <div className="flex items-center">
+                    <img 
+                      src={post.author.avatar} 
+                      alt={post.author.name} 
+                      className="h-8 w-8 rounded-full mr-2 object-cover"
+                    />
+                    <div>
+                      <p className="text-sm font-medium leading-none">{post.author.name}</p>
+                      <p className="text-xs text-muted-foreground">{post.author.title}</p>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="icon">
+                    <Share2 className="h-4 w-4" />
+                  </Button>
+                </CardFooter>
+              </Link>
             </Card>
           ))}
         </div>
@@ -139,7 +148,9 @@ const Blog = () => {
               <p>Download our comprehensive guides on data architecture, governance, and strategy.</p>
             </CardContent>
             <CardFooter>
-              <Button variant="secondary" className="w-full">Browse Whitepapers</Button>
+              <Button variant="secondary" className="w-full" asChild>
+                <Link to="/resources/whitepapers">Browse Whitepapers</Link>
+              </Button>
             </CardFooter>
           </Card>
           
@@ -155,7 +166,9 @@ const Blog = () => {
               <p>Join our experts for deep dives into data engineering topics and live Q&A.</p>
             </CardContent>
             <CardFooter>
-              <Button variant="secondary" className="w-full bg-white text-secondary">View Schedule</Button>
+              <Button variant="secondary" className="w-full bg-white text-secondary" asChild>
+                <Link to="/resources/webinars">View Schedule</Link>
+              </Button>
             </CardFooter>
           </Card>
           
@@ -171,7 +184,9 @@ const Blog = () => {
               <p>Explore detailed case studies showcasing our solutions across various industries.</p>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Read Case Studies</Button>
+              <Button className="w-full" asChild>
+                <Link to="/resources/case-studies">Read Case Studies</Link>
+              </Button>
             </CardFooter>
           </Card>
         </div>

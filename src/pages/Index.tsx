@@ -12,6 +12,14 @@ import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ServiceRequest from "@/components/ServiceRequest";
+import Portfolio from "@/components/Portfolio";
+import Team from "@/components/Team";
+import Technologies from "@/components/Technologies";
+import ROICalculator from "@/components/ROICalculator";
+import Blog from "@/components/Blog";
+import ServiceComparison from "@/components/ServiceComparison";
+import DataMaturityAssessment from "@/components/DataMaturityAssessment";
+import LiveChat from "@/components/LiveChat";
 
 const Index = () => {
   return (
@@ -22,14 +30,22 @@ const Index = () => {
         <About />
         <Services />
         <ServiceRequest />
+        <Portfolio />
         <Features />
+        <Team />
+        <Technologies />
         <Process />
+        <ROICalculator />
+        <ServiceComparison />
         <Testimonials />
+        <Blog />
+        <DataMaturityAssessment />
         <FAQ />
         <CTA />
         <Contact />
       </main>
       <Footer />
+      <LiveChat />
     </div>
   );
 };

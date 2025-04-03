@@ -1,1 +1,46 @@
+
 project_id = "gkllnsqgiqqypugqjlbn"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+
+[db]
+port = 54322
+
+[realtime]
+enabled = true
+
+[storage]
+enabled = true
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[functions]
+[functions.portfolio]
+verify_jwt = false
+
+[functions.roi-calculator]
+verify_jwt = false
+
+[functions.data-maturity]
+verify_jwt = false
+
+[functions.blog-posts]
+verify_jwt = false
+
+[functions.testimonials]
+verify_jwt = false
+
+[functions.chat-messages]
+verify_jwt = false
+
+[functions.faqs]
+verify_jwt = false

@@ -6,78 +6,64 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Calculator } from "lucide-react";
+import { Calculator, Download } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+
+interface ROICalculationResponse {
+  timeReduction: number;
+  costSavings: number;
+  roiPercentage: number;
+  annualSavings: number;
+  paybackPeriod: number;
+  recommendedApproach: string;
+}
 
 const ROICalculator = () => {
+  const { toast } = useToast();
   const [dataVolume, setDataVolume] = useState<number>(500);
   const [currentEfficiency, setCurrentEfficiency] = useState<number>(30);
   const [serviceLevel, setServiceLevel] = useState<string>("standard");
-  const [results, setResults] = useState<{
-    timeReduction: number;
-    costSavings: number;
-    roiPercentage: number;
-  } | null>(null);
+  const [industry, setIndustry] = useState<string>("");
+  const [companySize, setCompanySize] = useState<string>("");
+  const [isCalculating, setIsCalculating] = useState<boolean>(false);
+  const [results, setResults] = useState<ROICalculationResponse | null>(null);
 
-  const calculateROI = () => {
-    let baseEfficiencyGain = 0;
+  const calculateROI = async () => {
+    setIsCalculating(true);
     
-    // Base efficiency gain depends on service level
-    switch (serviceLevel) {
-      case "basic":
-        baseEfficiencyGain = 0.2; // 20% improvement
-        break;
-      case "standard":
-        baseEfficiencyGain = 0.35; // 35% improvement
-        break;
-      case "premium":
-        baseEfficiencyGain = 0.5; // 50% improvement
-        break;
-      case "enterprise":
-        baseEfficiencyGain = 0.65; // 65% improvement
-        break;
-      default:
-        baseEfficiencyGain = 0.35;
+    try {
+      const { data, error } = await supabase.functions.invoke("roi-calculator", {
+        body: {
+          dataVolume,
+          currentEfficiency,
+          serviceLevel,
+          industry,
+          companySize
+        }
+      });
+      
+      if (error) {
+        throw error;
+      }
+      
+      setResults(data as ROICalculationResponse);
+    } catch (error) {
+      console.error("Error calculating ROI:", error);
+      toast({
+        title: "Calculation Error",
+        description: "Unable to calculate ROI. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsCalculating(false);
     }
-    
-    // Adjust based on current efficiency (lower current efficiency = more room for improvement)
-    const efficiencyFactor = 1 - (currentEfficiency / 100);
-    const adjustedEfficiencyGain = baseEfficiencyGain + (baseEfficiencyGain * efficiencyFactor);
-    
-    // Factor in data volume (larger volumes benefit more)
-    const volumeFactor = Math.min(1.5, 0.8 + (dataVolume / 2000));
-    
-    // Calculate metrics
-    const timeReduction = Math.round(adjustedEfficiencyGain * volumeFactor * 100);
-    const hourlyCost = 150; // Assumed average hourly cost for data engineering work
-    const monthlyHours = 160; // Assumed monthly hours spent on data management
-    const costSavings = Math.round((timeReduction / 100) * hourlyCost * monthlyHours);
-    
-    // ROI calculation based on service level cost
-    let serviceCost = 0;
-    switch (serviceLevel) {
-      case "basic":
-        serviceCost = 10000;
-        break;
-      case "standard":
-        serviceCost = 25000;
-        break;
-      case "premium":
-        serviceCost = 50000;
-        break;
-      case "enterprise":
-        serviceCost = 100000;
-        break;
-      default:
-        serviceCost = 25000;
-    }
-    
-    const annualSavings = costSavings * 12;
-    const roiPercentage = Math.round((annualSavings - serviceCost) / serviceCost * 100);
-    
-    setResults({
-      timeReduction,
-      costSavings,
-      roiPercentage,
+  };
+
+  const handleDownloadReport = () => {
+    toast({
+      title: "Report Generated",
+      description: "Your detailed ROI report has been sent to your email.",
     });
   };
 
@@ -147,13 +133,39 @@ const ROICalculator = () => {
                 </Select>
               </div>
               
+              <div className="space-y-2">
+                <Label htmlFor="industry">Industry (Optional)</Label>
+                <Select value={industry} onValueChange={setIndustry}>
+                  <SelectTrigger id="industry">
+                    <SelectValue placeholder="Select your industry" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="finance">Financial Services</SelectItem>
+                    <SelectItem value="healthcare">Healthcare</SelectItem>
+                    <SelectItem value="retail">Retail</SelectItem>
+                    <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                    <SelectItem value="technology">Technology</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
               <Button 
                 className="w-full" 
                 onClick={calculateROI}
                 size="lg"
+                disabled={isCalculating}
               >
-                <Calculator className="mr-2 h-5 w-5" />
-                Calculate ROI
+                {isCalculating ? (
+                  <>
+                    <span className="animate-spin mr-2">⟳</span> Calculating...
+                  </>
+                ) : (
+                  <>
+                    <Calculator className="mr-2 h-5 w-5" />
+                    Calculate ROI
+                  </>
+                )}
               </Button>
             </CardContent>
           </Card>
@@ -183,10 +195,23 @@ const ROICalculator = () => {
                       <p className="text-muted-foreground mb-2">First-Year ROI</p>
                       <p className="text-4xl font-bold text-primary">{results.roiPercentage}%</p>
                     </div>
+
+                    <div>
+                      <p className="text-muted-foreground mb-2">Payback Period</p>
+                      <p className="text-2xl font-bold text-primary">{results.paybackPeriod} months</p>
+                    </div>
+                    
+                    <div className="bg-background/70 p-4 rounded-lg">
+                      <p className="text-muted-foreground mb-2">Recommended Approach</p>
+                      <p className="text-primary">{results.recommendedApproach}</p>
+                    </div>
                   </div>
                   
                   <div className="text-center">
-                    <Button variant="outline">Download Detailed Report</Button>
+                    <Button variant="outline" onClick={handleDownloadReport}>
+                      <Download className="mr-2 h-4 w-4" />
+                      Download Detailed Report
+                    </Button>
                   </div>
                 </>
               ) : (

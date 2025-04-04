@@ -20,6 +20,7 @@ import Blog from "@/components/Blog";
 import ServiceComparison from "@/components/ServiceComparison";
 import DataMaturityAssessment from "@/components/DataMaturityAssessment";
 import LiveChat from "@/components/LiveChat";
+import BusinessGrowthCalculator from "@/components/BusinessGrowthCalculator";
 
 const Index = () => {
   return (
@@ -29,6 +30,7 @@ const Index = () => {
         <Hero />
         <About />
         <Services />
+        <BusinessGrowthCalculator />
         <ServiceRequest />
         <Portfolio />
         <Features />

@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Clock, Share2, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 

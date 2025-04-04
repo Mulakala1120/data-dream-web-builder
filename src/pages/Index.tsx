@@ -30,14 +30,14 @@ const Index = () => {
         <Hero />
         <About />
         <Services />
-        <BusinessGrowthCalculator />
-        <ServiceRequest />
-        <Portfolio />
         <Features />
+        <BusinessGrowthCalculator />
+        <Process />
+        <Portfolio />
         <Team />
         <Technologies />
-        <Process />
         <ROICalculator />
+        <ServiceRequest />
         <ServiceComparison />
         <Testimonials />
         <Blog />

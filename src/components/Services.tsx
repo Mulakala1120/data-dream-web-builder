@@ -38,7 +38,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, tec
       </div>
       <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
         <Button variant="link" size="sm" className="p-0">
-          Learn more <ArrowUpRight className="ml-1 h-3 w-3" />
+          View technical details <ArrowUpRight className="ml-1 h-3 w-3" />
         </Button>
       </div>
     </div>

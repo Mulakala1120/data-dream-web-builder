@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,33 +16,36 @@ const Navbar: React.FC = () => {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <a href="/" className="text-2xl font-bold text-foreground flex items-center">
+          <Link to="/" className="text-2xl font-bold text-foreground flex items-center">
             <span className="data-gradient">DataDream</span>
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <a href="#about" className="text-foreground hover:text-primary transition-colors">
+          <a href="/#about" className="text-foreground hover:text-primary transition-colors">
             About
           </a>
-          <a href="#services" className="text-foreground hover:text-primary transition-colors">
+          <a href="/#services" className="text-foreground hover:text-primary transition-colors">
             Services
           </a>
-          <a href="#features" className="text-foreground hover:text-primary transition-colors">
+          <a href="/#features" className="text-foreground hover:text-primary transition-colors">
             Features
           </a>
-          <a href="#process" className="text-foreground hover:text-primary transition-colors">
+          <a href="/#process" className="text-foreground hover:text-primary transition-colors">
             Process
           </a>
-          <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">
+          <a href="/#testimonials" className="text-foreground hover:text-primary transition-colors">
             Testimonials
           </a>
-          <a href="#faq" className="text-foreground hover:text-primary transition-colors">
+          <a href="/#faq" className="text-foreground hover:text-primary transition-colors">
             FAQ
           </a>
+          <Link to="/blog" className="text-foreground hover:text-primary transition-colors">
+            Blog
+          </Link>
           <Button asChild>
-            <a href="#contact" className="bg-primary text-white">Contact Us</a>
+            <a href="/#contact" className="bg-primary text-white">Contact Us</a>
           </Button>
         </nav>
 
@@ -59,26 +63,29 @@ const Navbar: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-background z-30 flex flex-col p-6">
           <nav className="flex flex-col space-y-4">
-            <a href="#about" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+            <a href="/#about" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               About
             </a>
-            <a href="#services" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+            <a href="/#services" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Services
             </a>
-            <a href="#features" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+            <a href="/#features" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Features
             </a>
-            <a href="#process" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+            <a href="/#process" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Process
             </a>
-            <a href="#testimonials" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+            <a href="/#testimonials" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               Testimonials
             </a>
-            <a href="#faq" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+            <a href="/#faq" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
               FAQ
             </a>
+            <Link to="/blog" onClick={toggleMenu} className="text-foreground hover:text-primary py-2 text-lg">
+              Blog
+            </Link>
             <Button asChild className="mt-4">
-              <a href="#contact" onClick={toggleMenu}>Contact Us</a>
+              <a href="/#contact" onClick={toggleMenu}>Contact Us</a>
             </Button>
           </nav>
         </div>

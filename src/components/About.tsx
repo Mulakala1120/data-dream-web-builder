@@ -1,6 +1,8 @@
 
 import React from "react";
 import { CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const About: React.FC = () => {
   return (
@@ -49,6 +51,15 @@ const About: React.FC = () => {
                   <p className="text-muted-foreground">Leverage the power of AWS, Azure, and GCP for flexible, cost-effective data infrastructure.</p>
                 </div>
               </div>
+            </div>
+            
+            <div className="mt-8 space-x-4">
+              <Button asChild>
+                <Link to="#services">Explore Our Services</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="#contact">Schedule a Consultation</Link>
+              </Button>
             </div>
           </div>
           

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 
 const CTA: React.FC = () => {
   const { toast } = useToast();
@@ -78,12 +79,23 @@ const CTA: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <Button size="lg" variant="secondary" className="font-medium" asChild>
-              <a href="#contact">
+              <Link to="#contact">
                 Schedule a Consultation <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
-              <a href="#services">Explore Our Solutions</a>
+            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10" asChild>
+              <Link to="#services">Explore Our Solutions</Link>
+            </Button>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+            <Button size="lg" variant="secondary" className="font-medium" asChild>
+              <Link to="/roi-analysis">
+                Calculate Your ROI <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10" asChild>
+              <Link to="#service-request">Request a Service</Link>
             </Button>
           </div>
           

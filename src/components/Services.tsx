@@ -2,15 +2,25 @@
 import React from "react";
 import { Database, Server, BarChart3, GitBranch, Shield, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
 
-const ServiceCard: React.FC<{
+interface ServiceCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   technologies: string[];
-}> = ({ icon, title, description, technologies }) => {
+  serviceId: string;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, technologies, serviceId }) => {
+  const navigate = useNavigate();
+  
+  const handleServiceClick = () => {
+    navigate(`/service-details/${serviceId}`);
+  };
+  
   return (
-    <div className="data-card group">
+    <div className="data-card group cursor-pointer hover:shadow-lg transition-all" onClick={handleServiceClick}>
       <div className="mb-4 text-dataBlue-500 group-hover:text-dataBlue-600 transition-colors">
         {icon}
       </div>
@@ -25,6 +35,11 @@ const ServiceCard: React.FC<{
             </span>
           ))}
         </div>
+      </div>
+      <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button variant="link" size="sm" className="p-0">
+          Learn more <ArrowUpRight className="ml-1 h-3 w-3" />
+        </Button>
       </div>
     </div>
   );
@@ -47,6 +62,7 @@ const Services: React.FC = () => {
             title="Data Integration & ETL"
             description="Build resilient data pipelines connecting disparate sources, with support for both batch processing and real-time streaming data integration scenarios."
             technologies={["Apache Kafka", "Spark", "Airflow", "DBT", "Fivetran", "Custom Connectors"]}
+            serviceId="data-integration"
           />
           
           <ServiceCard
@@ -54,6 +70,7 @@ const Services: React.FC = () => {
             title="Data Warehouse Design"
             description="Design and implement modern data warehouses with dimensional modeling, data vault approaches, or lakehouse architectures tailored to your analytics needs."
             technologies={["Snowflake", "BigQuery", "Redshift", "Databricks", "Synapse"]}
+            serviceId="data-warehouse"
           />
           
           <ServiceCard
@@ -61,6 +78,7 @@ const Services: React.FC = () => {
             title="Business Intelligence"
             description="Develop interactive dashboards and self-service analytics platforms that translate technical data into actionable business insights with minimal latency."
             technologies={["Tableau", "Power BI", "Looker", "Metabase", "Custom Solutions"]}
+            serviceId="business-intelligence"
           />
           
           <ServiceCard
@@ -68,6 +86,7 @@ const Services: React.FC = () => {
             title="DataOps & MLOps"
             description="Implement CI/CD for data pipelines with automated testing, deployment, monitoring, and version control practices for both data assets and ML models."
             technologies={["GitHub Actions", "Jenkins", "Terraform", "Docker", "Kubernetes"]}
+            serviceId="dataops-mlops"
           />
           
           <ServiceCard
@@ -75,6 +94,7 @@ const Services: React.FC = () => {
             title="Data Governance"
             description="Establish comprehensive data governance frameworks including data catalogs, quality monitoring, access controls, and compliance documentation."
             technologies={["Collibra", "Alation", "Great Expectations", "Immuta", "Custom Frameworks"]}
+            serviceId="data-governance"
           />
           
           <ServiceCard
@@ -82,12 +102,13 @@ const Services: React.FC = () => {
             title="Performance Optimization"
             description="Tune and optimize your data systems for maximum throughput, query performance, and cost-efficiency through indexing, partitioning, and cloud resource management."
             technologies={["Query Optimization", "Infrastructure Tuning", "Cost Analysis", "Caching Strategies"]}
+            serviceId="performance-optimization"
           />
         </div>
         
         <div className="text-center">
           <Button size="lg" asChild>
-            <a href="#contact">Discuss Your Project <ArrowUpRight className="ml-2 h-4 w-4" /></a>
+            <Link to="#service-request">Request a Service <ArrowUpRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </div>
       </div>

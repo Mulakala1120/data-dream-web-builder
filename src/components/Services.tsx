@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Database, Server, BarChart3, GitBranch, Shield, ArrowUpRight } from "lucide-react";
+import { Database, Server, BarChart3, GitBranch, Shield, ArrowUpRight, Terminal, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, tec
   };
   
   return (
-    <div className="data-card group cursor-pointer hover:shadow-lg transition-all" onClick={handleServiceClick}>
+    <div className="data-card group cursor-pointer hover:shadow-lg transition-all border rounded-lg p-6 hover:border-dataBlue-300" onClick={handleServiceClick}>
       <div className="mb-4 text-dataBlue-500 group-hover:text-dataBlue-600 transition-colors">
         {icon}
       </div>
@@ -56,7 +56,7 @@ const Services: React.FC = () => {
           </p>
         </div>
 
-        <div className="data-grid mb-12">
+        <div className="data-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           <ServiceCard
             icon={<Database className="h-10 w-10" />}
             title="Data Integration & ETL"
@@ -98,7 +98,7 @@ const Services: React.FC = () => {
           />
           
           <ServiceCard
-            icon={<ArrowUpRight className="h-10 w-10" />}
+            icon={<Code className="h-10 w-10" />}
             title="Performance Optimization"
             description="Tune and optimize your data systems for maximum throughput, query performance, and cost-efficiency through indexing, partitioning, and cloud resource management."
             technologies={["Query Optimization", "Infrastructure Tuning", "Cost Analysis", "Caching Strategies"]}
@@ -107,7 +107,10 @@ const Services: React.FC = () => {
         </div>
         
         <div className="text-center">
-          <Button size="lg" asChild>
+          <Button size="lg" asChild className="mr-4">
+            <Link to="/service-details/all">Explore Technical Details <Terminal className="ml-2 h-4 w-4" /></Link>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
             <Link to="#service-request">Request a Service <ArrowUpRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </div>

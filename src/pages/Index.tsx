@@ -21,6 +21,7 @@ import ServiceComparison from "@/components/ServiceComparison";
 import DataMaturityAssessment from "@/components/DataMaturityAssessment";
 import LiveChat from "@/components/LiveChat";
 import BusinessGrowthCalculator from "@/components/BusinessGrowthCalculator";
+import DataEngineeringSkills from "@/components/DataEngineeringSkills";
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
         <Hero />
         <About />
         <Services />
+        <DataEngineeringSkills />
         <Features />
         <BusinessGrowthCalculator />
         <Process />

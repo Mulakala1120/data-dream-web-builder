@@ -1,8 +1,31 @@
 
 import React from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Database, Code, BarChart3, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
+const DataEngineeringToolkit = () => {
+  const tools = [
+    { name: "Apache Airflow", category: "Orchestration", icon: "⚙️" },
+    { name: "Apache Kafka", category: "Streaming", icon: "📊" },
+    { name: "Apache Spark", category: "Processing", icon: "⚡" },
+    { name: "dbt", category: "Transformation", icon: "🔄" },
+    { name: "Snowflake", category: "Data Warehouse", icon: "❄️" },
+    { name: "Kubernetes", category: "Infrastructure", icon: "🚢" }
+  ];
+  
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6">
+      {tools.map((tool) => (
+        <div key={tool.name} className="bg-muted/50 rounded-lg p-3 flex flex-col items-center text-center border hover:border-dataBlue-300 hover:shadow-sm transition-all">
+          <div className="text-2xl mb-1">{tool.icon}</div>
+          <div className="font-medium text-sm">{tool.name}</div>
+          <div className="text-xs text-muted-foreground">{tool.category}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const About: React.FC = () => {
   return (
@@ -55,11 +78,16 @@ const About: React.FC = () => {
             
             <div className="mt-8 space-x-4">
               <Button asChild>
-                <Link to="#services">Explore Our Services</Link>
+                <Link to="/service-details/all">Explore Technical Solutions</Link>
               </Button>
               <Button variant="outline" asChild>
                 <Link to="#contact">Schedule a Consultation</Link>
               </Button>
+            </div>
+            
+            <div className="mt-8 pt-6 border-t border-muted">
+              <h4 className="font-semibold text-lg mb-2">My Data Engineering Toolkit</h4>
+              <DataEngineeringToolkit />
             </div>
           </div>
           
@@ -97,6 +125,18 @@ const About: React.FC = () => {
               <div className="bg-white rounded-lg p-4 shadow border">
                 <p className="text-4xl font-bold text-dataTeal-500">3x</p>
                 <p className="text-sm text-muted-foreground">Faster data processing</p>
+              </div>
+            </div>
+            
+            {/* Core technical skills */}
+            <div className="mt-4 bg-white rounded-lg p-4 shadow border">
+              <h4 className="font-semibold text-lg mb-2">Core Technical Skills</h4>
+              <div className="flex flex-wrap gap-2">
+                {["SQL", "Python", "Spark", "Airflow", "Kafka", "dbt", "Snowflake", "BigQuery", "Terraform", "Docker", "Kubernetes"].map((skill) => (
+                  <span key={skill} className="bg-muted px-3 py-1 rounded-full text-xs font-medium">
+                    {skill}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

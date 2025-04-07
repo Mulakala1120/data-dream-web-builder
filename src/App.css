@@ -1,8 +1,9 @@
 
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
   #root {
     max-width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
   }
   
   .logo {
@@ -13,8 +14,25 @@
   .card {
     padding: 1.5em;
   }
+  
+  /* Improve mobile navigation */
+  nav {
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Adjust section spacing */
+  section {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Adjust button sizes for mobile */
+  button {
+    min-height: 42px; /* Ensure touchable area size */
+  }
 }
 
+/* Desktop Responsive Styles */
 @media (min-width: 769px) {
   #root {
     max-width: 1280px;
@@ -32,6 +50,7 @@
   }
 }
 
+/* General Styles */
 .logo {
   will-change: filter;
   transition: filter 300ms;
@@ -62,4 +81,28 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Make sure links are properly styled and clickable */
+a, button, [role="button"] {
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Ensure buttons have proper focus states */
+button:focus, a:focus {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+}
+
+/* Fix for touch targets on mobile */
+@media (max-width: 768px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

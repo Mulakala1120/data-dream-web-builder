@@ -23,6 +23,15 @@ import LiveChat from "@/components/LiveChat";
 import BusinessGrowthCalculator from "@/components/BusinessGrowthCalculator";
 import DataEngineeringSkills from "@/components/DataEngineeringSkills";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ErrorBoundary } from "react-error-boundary";
+
+// Simple fallback component for error states
+const ComponentErrorFallback = ({ componentName }: { componentName: string }) => (
+  <div className="p-4 my-2 border border-red-200 rounded bg-red-50 text-center">
+    <p className="text-red-700">Component {componentName} failed to load.</p>
+    <p className="text-sm text-red-500">Please refresh the page to try again.</p>
+  </div>
+);
 
 const Index = () => {
   const isMobile = useIsMobile();
@@ -31,25 +40,81 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow">
-        <Hero />
-        <About />
-        <Services />
-        <DataEngineeringSkills />
-        <Features />
-        <BusinessGrowthCalculator />
-        <Process />
-        <Portfolio />
-        <Team />
-        <Technologies />
-        <ROICalculator />
-        <ServiceRequest />
-        <ServiceComparison />
-        <Testimonials />
-        <Blog />
-        <DataMaturityAssessment />
-        <FAQ />
-        <CTA />
-        <Contact />
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Hero" />}>
+          <Hero />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="About" />}>
+          <About />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Services" />}>
+          <Services />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="DataEngineeringSkills" />}>
+          <DataEngineeringSkills />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Features" />}>
+          <Features />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="BusinessGrowthCalculator" />}>
+          <BusinessGrowthCalculator />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Process" />}>
+          <Process />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Portfolio" />}>
+          <Portfolio />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Team" />}>
+          <Team />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Technologies" />}>
+          <Technologies />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="ROICalculator" />}>
+          <ROICalculator />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="ServiceRequest" />}>
+          <ServiceRequest />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="ServiceComparison" />}>
+          <ServiceComparison />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Testimonials" />}>
+          <Testimonials />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Blog" />}>
+          <Blog />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="DataMaturityAssessment" />}>
+          <DataMaturityAssessment />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="FAQ" />}>
+          <FAQ />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="CTA" />}>
+          <CTA />
+        </ErrorBoundary>
+        
+        <ErrorBoundary fallback={<ComponentErrorFallback componentName="Contact" />}>
+          <Contact />
+        </ErrorBoundary>
       </main>
       <Footer />
       <LiveChat />

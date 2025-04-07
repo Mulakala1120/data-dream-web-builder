@@ -77,7 +77,7 @@ const Portfolio = () => {
                     <div className="mb-4">{getIconComponent(item.icon)}</div>
                     <CardTitle className="text-2xl">{item.title}</CardTitle>
                     <CardDescription>
-                      <Badge className="mr-2">{item.industry}</Badge>
+                      <span className="mr-2">{item.industry}</span>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

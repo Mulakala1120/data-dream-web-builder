@@ -7,20 +7,28 @@ export function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState<boolean>(false)
 
   React.useEffect(() => {
-    // Handle the initial state
+    // Function to check if the screen is mobile size
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+      const width = window.innerWidth
+      setIsMobile(width < MOBILE_BREAKPOINT)
     }
     
     // Set initial value
     checkMobile()
     
-    // Add event listener for window resizing
-    window.addEventListener("resize", checkMobile)
+    // Add event listener for window resizing with debounce
+    let timeoutId: ReturnType<typeof setTimeout>
+    const handleResize = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(checkMobile, 100)
+    }
+    
+    window.addEventListener("resize", handleResize)
     
     // Cleanup function
     return () => {
-      window.removeEventListener("resize", checkMobile)
+      window.removeEventListener("resize", handleResize)
+      clearTimeout(timeoutId)
     }
   }, [])
 

@@ -52,8 +52,12 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description, techStack, 
       
       {link && (
         <div className="mt-4">
-          <Button variant="link" asChild className="p-0 w-full justify-start">
-            <Link to={link}>
+          <Button 
+            variant="link" 
+            asChild 
+            className="p-0 w-full justify-start hover:text-primary"
+          >
+            <Link to={link} className="inline-flex items-center">
               Learn more <ArrowRight className="h-3 w-3 ml-1" />
             </Link>
           </Button>
@@ -135,7 +139,11 @@ const Features: React.FC = () => {
         </div>
 
         <div className="mt-8 md:mt-12 text-center">
-          <Button asChild size={isMobile ? "default" : "lg"} className="w-full sm:w-auto">
+          <Button 
+            asChild 
+            size={isMobile ? "default" : "lg"} 
+            className="w-full sm:w-auto"
+          >
             <Link to="/service-details/all">
               Explore Technical Architecture <GitBranch className="ml-2 h-4 w-4" />
             </Link>

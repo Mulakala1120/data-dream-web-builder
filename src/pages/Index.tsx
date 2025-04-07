@@ -22,8 +22,11 @@ import DataMaturityAssessment from "@/components/DataMaturityAssessment";
 import LiveChat from "@/components/LiveChat";
 import BusinessGrowthCalculator from "@/components/BusinessGrowthCalculator";
 import DataEngineeringSkills from "@/components/DataEngineeringSkills";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

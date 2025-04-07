@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -24,8 +25,10 @@ interface FeatureProps {
 }
 
 const Feature: React.FC<FeatureProps> = ({ icon, title, description, techStack, link }) => {
+  const isMobile = useIsMobile();
+
   return (
-    <div className="p-6 rounded-xl bg-card hover:shadow-md transition-all border border-transparent hover:border-dataBlue-200">
+    <div className="p-4 md:p-6 rounded-xl bg-card hover:shadow-md transition-all border border-transparent hover:border-dataBlue-200">
       <div className="bg-primary/10 p-3 rounded-lg w-fit mb-4">
         <div className="text-primary">
           {icon}
@@ -49,7 +52,7 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description, techStack, 
       
       {link && (
         <div className="mt-4">
-          <Button variant="link" asChild className="p-0">
+          <Button variant="link" asChild className="p-0 w-full justify-start">
             <Link to={link}>
               Learn more <ArrowRight className="h-3 w-3 ml-1" />
             </Link>
@@ -61,6 +64,8 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description, techStack, 
 };
 
 const Features: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   const features = [
     {
       icon: <Database className="h-6 w-6" />,
@@ -74,7 +79,7 @@ const Features: React.FC = () => {
       title: "Real-time ETL",
       description: "Transform raw data into analytics-ready formats with our high-performance ETL pipelines that handle both batch and streaming workloads with sub-second latency.",
       techStack: ["Spark Streaming", "Flink", "Kafka Streams", "Beam"],
-      link: "/service-details/data-integration"
+      link: "/service-details/real-time-etl"
     },
     {
       icon: <Shield className="h-6 w-6" />,
@@ -95,28 +100,28 @@ const Features: React.FC = () => {
       title: "Data Orchestration",
       description: "Automate and monitor complex data workflows with fault-tolerant scheduling using industry-standard tools like Airflow, Prefect, or custom solutions.",
       techStack: ["Airflow", "Prefect", "Dagster", "dbt Core"],
-      link: "/service-details/dataops-mlops"
+      link: "/service-details/data-orchestration"
     },
     {
       icon: <Layers className="h-6 w-6" />,
       title: "Data Science Enablement",
       description: "Build feature stores and ML platforms that bridge the gap between data engineering and data science teams, accelerating model development cycles.",
       techStack: ["Feature Store", "MLflow", "Kubeflow", "TensorFlow"],
-      link: "/service-details/business-intelligence"
+      link: "/service-details/data-science"
     }
   ];
 
   return (
-    <section id="features" className="py-20 bg-muted/30">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Our <span className="data-gradient">Key Features</span></h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+    <section id="features" className="py-12 md:py-20 bg-muted/30">
+      <div className="container px-4 md:px-8">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">Our <span className="data-gradient">Key Features</span></h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
             Industry-leading data engineering capabilities tailored to your enterprise requirements.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => (
             <Feature 
               key={index} 
@@ -129,8 +134,8 @@ const Features: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <Button asChild size="lg">
+        <div className="mt-8 md:mt-12 text-center">
+          <Button asChild size={isMobile ? "default" : "lg"} className="w-full sm:w-auto">
             <Link to="/service-details/all">
               Explore Technical Architecture <GitBranch className="ml-2 h-4 w-4" />
             </Link>

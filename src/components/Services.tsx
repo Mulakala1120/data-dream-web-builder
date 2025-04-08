@@ -111,7 +111,7 @@ const Services: React.FC = () => {
             <Link to="/service-details/all">Explore Technical Details <Terminal className="ml-2 h-4 w-4" /></Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link to="#service-request">Request a Service <ArrowUpRight className="ml-2 h-4 w-4" /></Link>
+            <a href="#service-request">Request a Service <ArrowUpRight className="ml-2 h-4 w-4" /></a>
           </Button>
         </div>
       </div>

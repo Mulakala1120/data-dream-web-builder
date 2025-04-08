@@ -22,13 +22,49 @@
   
   /* Adjust section spacing */
   section {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
   }
   
   /* Adjust button sizes for mobile */
-  button {
+  button, 
+  .button,
+  a[role="button"] {
     min-height: 42px; /* Ensure touchable area size */
+    font-size: 0.95rem !important;
+  }
+  
+  /* Improve card layouts on mobile */
+  .card, 
+  [class*="card"] {
+    width: 100% !important;
+  }
+  
+  /* Adjust grid layouts */
+  .grid {
+    gap: 1rem !important;
+  }
+  
+  /* Ensure proper text sizing */
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  /* Fix any fixed position elements */
+  [style*="position: fixed"],
+  .fixed {
+    width: 100% !important;
+    max-width: 100vw !important;
   }
 }
 
@@ -105,4 +141,31 @@ button:focus, a:focus {
     align-items: center;
     justify-content: center;
   }
+}
+
+/* Make sure clickable elements have appropriate hover states */
+a:hover, 
+button:hover, 
+[role="button"]:hover {
+  opacity: 0.9;
+}
+
+/* Make sure cards and sections are properly spaced on all devices */
+.section, 
+section {
+  padding: 2rem 1rem;
+}
+
+@media (min-width: 769px) {
+  .section,
+  section {
+    padding: 4rem 2rem;
+  }
+}
+
+/* Fix for any potentially scrolling issues */
+html, 
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }

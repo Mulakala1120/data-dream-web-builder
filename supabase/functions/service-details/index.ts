@@ -32,6 +32,43 @@ serve(async (req) => {
       );
     }
 
+    // Handle the 'all' service ID specially
+    if (serviceId === 'all') {
+      const allServicesDetails = {
+        title: "All Data Engineering Services",
+        description: "Comprehensive overview of our full range of data engineering solutions designed to meet enterprise-scale requirements.",
+        processDuration: "Variable based on service",
+        maintenanceSupport: "Custom support plans available",
+        technologies: [
+          { name: "Apache Kafka", use: "Real-time data streaming" },
+          { name: "Apache Spark", use: "Large-scale data processing" },
+          { name: "Snowflake", use: "Cloud data warehouse" },
+          { name: "Tableau", use: "Business intelligence" },
+          { name: "GitHub Actions", use: "CI/CD automation" },
+          { name: "Collibra", use: "Data governance" }
+        ],
+        faqs: [
+          { question: "What services are most popular for startups?", answer: "Data Integration & ETL and Data Warehouse Design are common starting points for companies building their data infrastructure." },
+          { question: "Do you offer combined service packages?", answer: "Yes, we offer custom packages that integrate multiple services for a comprehensive data solution." }
+        ],
+        caseStudies: [
+          { 
+            title: "Enterprise Data Transformation", 
+            description: "End-to-end data platform implementation for a Fortune 500 company, spanning all our service categories.",
+            results: "85% reduction in reporting time, 40% decrease in data infrastructure costs"
+          }
+        ]
+      };
+
+      return new Response(
+        JSON.stringify(allServicesDetails),
+        { 
+          status: 200, 
+          headers: { "Content-Type": "application/json", ...corsHeaders } 
+        }
+      );
+    }
+
     // Map service IDs to detailed information
     const serviceDetails = {
       "data-integration": {

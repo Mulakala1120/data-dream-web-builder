@@ -38,7 +38,10 @@ const Index = () => {
   
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <ErrorBoundary fallback={<ComponentErrorFallback componentName="Navbar" />}>
+        <Navbar />
+      </ErrorBoundary>
+      
       <main className="flex-grow">
         <ErrorBoundary fallback={<ComponentErrorFallback componentName="Hero" />}>
           <Hero />
@@ -116,8 +119,14 @@ const Index = () => {
           <Contact />
         </ErrorBoundary>
       </main>
-      <Footer />
-      <LiveChat />
+      
+      <ErrorBoundary fallback={<ComponentErrorFallback componentName="Footer" />}>
+        <Footer />
+      </ErrorBoundary>
+      
+      <ErrorBoundary fallback={<div />}>
+        <LiveChat />
+      </ErrorBoundary>
     </div>
   );
 };

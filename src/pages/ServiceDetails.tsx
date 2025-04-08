@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Check, Loader2, Database, Server, BarChart3, GitBranch, Shield, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, Check, Loader2, Database, Server, BarChart3, GitBranch, Shield, ArrowUpRight, Code } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,13 +16,14 @@ import DataArchitectureDiagram from "@/components/DataArchitectureDiagram";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ServiceDetails = () => {
-  const { serviceId } = useParams();
+  const { serviceId = 'all' } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
   
   const [serviceDetails, setServiceDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,6 +39,41 @@ const ServiceDetails = () => {
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
+        setLoading(true);
+        setError(null);
+        
+        // Handle the 'all' service ID case with default content
+        if (serviceId === 'all') {
+          setServiceDetails({
+            title: "All Data Engineering Services",
+            description: "Comprehensive overview of our full range of data engineering solutions designed to meet enterprise-scale requirements.",
+            processDuration: "Variable based on service",
+            maintenanceSupport: "Custom support plans available",
+            technologies: [
+              { name: "Apache Kafka", use: "Real-time data streaming" },
+              { name: "Apache Spark", use: "Large-scale data processing" },
+              { name: "Snowflake", use: "Cloud data warehouse" },
+              { name: "Tableau", use: "Business intelligence" },
+              { name: "GitHub Actions", use: "CI/CD automation" },
+              { name: "Collibra", use: "Data governance" }
+            ],
+            faqs: [
+              { question: "What services are most popular for startups?", answer: "Data Integration & ETL and Data Warehouse Design are common starting points for companies building their data infrastructure." },
+              { question: "Do you offer combined service packages?", answer: "Yes, we offer custom packages that integrate multiple services for a comprehensive data solution." }
+            ],
+            caseStudies: [
+              { 
+                title: "Enterprise Data Transformation", 
+                description: "End-to-end data platform implementation for a Fortune 500 company, spanning all our service categories.",
+                results: "85% reduction in reporting time, 40% decrease in data infrastructure costs"
+              }
+            ]
+          });
+          setLoading(false);
+          return;
+        }
+        
+        // For specific service details, make the API call
         const { data, error } = await supabase.functions.invoke("service-details", {
           body: { serviceId }
         });
@@ -46,6 +82,7 @@ const ServiceDetails = () => {
         setServiceDetails(data);
       } catch (error) {
         console.error("Error fetching service details:", error);
+        setError("Failed to load service details. Please try again later.");
         toast({
           title: "Error",
           description: "Failed to load service details. Please try again later.",
@@ -82,12 +119,12 @@ const ServiceDetails = () => {
       
       if (error) throw error;
       
-      setNextSteps(data.nextSteps || []);
+      setNextSteps(data?.nextSteps || []);
       setSubmitted(true);
       
       toast({
         title: "Inquiry Submitted!",
-        description: data.message || "Thank you for your interest. We'll be in touch soon.",
+        description: data?.message || "Thank you for your interest. We'll be in touch soon.",
       });
       
     } catch (error) {
@@ -116,7 +153,7 @@ const ServiceDetails = () => {
       case "data-governance":
         return <Shield className="h-10 w-10 text-primary" />;
       case "performance-optimization":
-        return <ArrowUpRight className="h-10 w-10 text-primary" />;
+        return <Code className="h-10 w-10 text-primary" />;
       default:
         return <Database className="h-10 w-10 text-primary" />;
     }
@@ -146,6 +183,16 @@ const ServiceDetails = () => {
             <div className="flex justify-center items-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
               <span className="ml-2">Loading service details...</span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <h2 className="text-2xl font-bold mb-2">Error Loading Service</h2>
+              <p className="text-muted-foreground mb-4">
+                {error}
+              </p>
+              <Button onClick={() => navigate("/")}>
+                Return to Home
+              </Button>
             </div>
           ) : serviceDetails ? (
             <>
@@ -318,6 +365,69 @@ const ServiceDetails = () => {
                           <Button className="mt-2">
                             Request Performance Assessment
                           </Button>
+                        </div>
+                      )}
+                      
+                      {serviceId === "all" && (
+                        <div className="space-y-6">
+                          <h3 className="text-xl font-semibold">Technical Capabilities Overview</h3>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>Data Integration & ETL</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  <li>Real-time streaming pipelines</li>
+                                  <li>Batch processing optimization</li>
+                                  <li>Custom connector development</li>
+                                  <li>Cross-platform data synchronization</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+                            
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>Data Warehouse Design</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  <li>Dimensional modeling expertise</li>
+                                  <li>Data vault implementation</li>
+                                  <li>Lakehouse architectures</li>
+                                  <li>Query performance optimization</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+                            
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>DataOps & MLOps</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  <li>CI/CD pipeline implementation</li>
+                                  <li>Automated testing frameworks</li>
+                                  <li>Version control for data assets</li>
+                                  <li>Containerized deployments</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+                            
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>Data Governance</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  <li>Metadata management systems</li>
+                                  <li>Data quality monitoring</li>
+                                  <li>Access control implementation</li>
+                                  <li>Regulatory compliance frameworks</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+                          </div>
                         </div>
                       )}
                     </TabsContent>

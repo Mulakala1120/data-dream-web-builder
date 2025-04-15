@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import ServiceDetails from "./pages/ServiceDetails";
 import BlogPost from "./pages/BlogPost";
 import ResourcePage from "./pages/ResourcePage";
+import CaseStudy from "./pages/CaseStudy";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/roi-analysis" element={<ROIAnalysis />} />
           <Route path="/service-details/:serviceId" element={<ServiceDetails />} />
+          <Route path="/case-studies/:caseStudyId" element={<CaseStudy />} />
           
           {/* Blog and Resource Routes */}
           <Route path="/blog" element={<ResourcePage type="blog" />} />

@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 interface PortfolioItem {
   id: number;
@@ -57,6 +58,13 @@ const Portfolio = () => {
   
   const showMore = () => {
     setVisibleItems(prevCount => Math.min(prevCount + 4, portfolioItems.length));
+  };
+
+  // Extract the case study ID from the URL
+  const getCaseStudyId = (url: string): string => {
+    if (!url) return "";
+    const parts = url.split('/');
+    return parts[parts.length - 1];
   };
 
   return (
@@ -106,11 +114,13 @@ const Portfolio = () => {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="outline" className="w-full" size="sm" asChild>
-                      <a href={item.case_study_url || "#"}>
-                        View Case Study <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
+                    {item.case_study_url && (
+                      <Button variant="outline" className="w-full" size="sm" asChild>
+                        <Link to={`/case-studies/${getCaseStudyId(item.case_study_url)}`}>
+                          View Case Study <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               ))}

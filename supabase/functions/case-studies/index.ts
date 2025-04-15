@@ -31,8 +31,10 @@ serve(async (req) => {
   }
 
   try {
-    const url = new URL(req.url);
-    const id = url.searchParams.get("id");
+    const requestData = await req.json();
+    const id = requestData.id;
+    
+    console.log(`Processing request for case study ID: ${id}`);
 
     if (!id) {
       return new Response(
@@ -73,13 +75,18 @@ serve(async (req) => {
           quote: "The data pipeline revolutionized our loan processing capabilities. What used to take weeks now takes days, and our risk models are more accurate than ever before.",
           author: "James Wilson",
           role: "Chief Credit Officer"
-        }
+        },
+        images: [
+          "/images/loan-processing-architecture.png",
+          "/images/loan-processing-dashboard.png"
+        ]
       }
     };
 
     const caseStudy = caseStudies[id];
     
     if (!caseStudy) {
+      console.error(`Case study not found for ID: ${id}`);
       return new Response(
         JSON.stringify({ error: "Case study not found" }),
         {
@@ -89,6 +96,7 @@ serve(async (req) => {
       );
     }
 
+    console.log(`Successfully found case study: ${caseStudy.title}`);
     return new Response(
       JSON.stringify(caseStudy),
       {

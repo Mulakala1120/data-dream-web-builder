@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.0";
 
@@ -8,7 +7,6 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-// Create a Supabase client with the auth context of the function
 const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
 const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -25,23 +23,21 @@ interface PortfolioItem {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    // Sample portfolio items - in a production app, these would come from a database
     const portfolioItems: PortfolioItem[] = [
       {
         id: 1,
-        title: "Financial Analytics Platform",
-        description: "Developed a comprehensive data warehouse and BI solution for a Fortune 500 financial institution.",
+        title: "Loan Processing Data Pipeline",
+        description: "Engineered an enterprise-scale data pipeline for a leading financial institution, processing over 1M loan applications annually. Implemented real-time credit scoring and automated underwriting systems.",
         industry: "Financial Services",
-        services: ["Data Warehouse Design", "Business Intelligence"],
-        results: "Reduced reporting time by 78% and enabled real-time financial decision-making",
-        icon: "BarChart2",
-        case_study_url: "/case-studies/financial-analytics"
+        services: ["Data Pipeline Development", "Real-time Processing", "Credit Risk Analytics"],
+        results: "Reduced loan processing time by 68% and improved risk assessment accuracy by 45%",
+        icon: "CircleDollarSign",
+        case_study_url: "/case-studies/loan-processing"
       },
       {
         id: 2,

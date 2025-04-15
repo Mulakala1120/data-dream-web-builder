@@ -1,8 +1,17 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, BarChart2, Database, GitBranch, LineChart, ServerCog, ShoppingCart, Shield } from "lucide-react";
+import { 
+  ArrowRight, 
+  BarChart2, 
+  Database, 
+  LineChart, 
+  ServerCog, 
+  ShoppingCart, 
+  Shield,
+  CircleDollarSign 
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -20,6 +29,7 @@ interface PortfolioItem {
 
 const getIconComponent = (iconName: string) => {
   switch (iconName) {
+    case "CircleDollarSign": return <CircleDollarSign className="h-12 w-12 text-primary" />;
     case "BarChart2": return <BarChart2 className="h-12 w-12 text-primary" />;
     case "Database": return <Database className="h-12 w-12 text-primary" />;
     case "LineChart": return <LineChart className="h-12 w-12 text-primary" />;

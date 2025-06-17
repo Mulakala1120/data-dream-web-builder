@@ -11,9 +11,7 @@
 - **No-Code Interface**: Built for users without any coding experience, enabling rapid prototyping and deployment.
 - **Customizable Components**: Offers flexibility to modify and extend generated components to meet specific needs.
 - **Integration Ready**: Supports seamless integration with third-party APIs and services.
-
----
-DevOps / Infrastructure (planned or partially implemented)
+- DevOps / Infrastructure (planned or partially implemented)
 - GitHub Actions for CI/CD *(future enhancement)*
 - Dockerfile for local development and cloud packaging *(included below)*
 - Potential ECS deployment or CloudFormation support *(planned)*

@@ -13,7 +13,10 @@
 - **Integration Ready**: Supports seamless integration with third-party APIs and services.
 
 ---
-
+DevOps / Infrastructure (planned or partially implemented)
+- GitHub Actions for CI/CD *(future enhancement)*
+- Dockerfile for local development and cloud packaging *(included below)*
+- Potential ECS deployment or CloudFormation support *(planned)*
 ## **🧭 Getting Started**
 
 ### **📋 Prerequisites**
@@ -120,3 +123,8 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Future Enhancements
+- Monitoring with Datadog or AWS CloudWatch
+- Repair engine prototype with anomaly detection
+- ECS or EC2 deployment with zonal failover support
+- Infrastructure-as-code with Terraform or CloudFormation
